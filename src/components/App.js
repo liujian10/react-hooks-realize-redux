@@ -1,5 +1,5 @@
-import React from 'react';
-import * as actions from '../actions';
+import React from 'react'
+import * as actions from '../actions'
 import { connect } from '../util'
 
 const App = props => {
@@ -11,12 +11,12 @@ const App = props => {
     const decrement = val => dispatch(actions.decrement(val))
 
     return (
-      <div>
-        <h1>The count is {count}</h1>
-        <button onClick={() => increment(count)}>+</button>
-        <button onClick={() => decrement(count)}>-</button>
-      </div>
-    );
+        <div>
+            <h1>The count is {count}</h1>
+            <button onClick={() => increment(count)}>+</button>
+            <button onClick={() => decrement(count)}>-</button>
+        </div>
+    )
 }
 
 export default connect(state => state.counter)(App);

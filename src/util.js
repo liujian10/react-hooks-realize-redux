@@ -1,25 +1,29 @@
 
 import { useContext, useMemo } from 'react'
 // 这里我们其实只有一个`Context`，可以直接放这里吧
-import { Context } from './Provider.js'
+import { StateContext } from './Provider.js'
+import { DispatchContext } from './Provider.js'
 
 const useSelector = (...funcs) => {
-    const [state, dispatch] = useContext(Context)
+    const state = useContext(StateContext)
     const resultFunc = useMemo(() => {
         if (funcs.length > 1) {
             return funcs.pop()
         }
-        return ([v]) => v
+        return (...v) => v[0]
     }, [funcs])
     const params = funcs.map(func => func(state))
 
-    return useMemo(() => [resultFunc(params), dispatch], [resultFunc, params, dispatch])
+    return useMemo(() => resultFunc(...params), [resultFunc, params])
 }
+
+const useDispatch = () => useContext(DispatchContext)
 
 const connect = (...args) => {
     return Cmp => {
         return props => {
-            const [state, dispatch] = useSelector(...args)
+            const state = useSelector(...args)
+            const dispatch = useDispatch()
             return useMemo(() => <Cmp {...props} {...state} dispatch={dispatch} /> , [props, state, dispatch])
         }
     }
@@ -52,5 +56,6 @@ const combineReducers = reducers => {
 export {
     combineReducers,
     useSelector,
+    useDispatch,
     connect,
 }

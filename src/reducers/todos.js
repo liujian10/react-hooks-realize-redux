@@ -1,4 +1,8 @@
-const todosReducer = (state, action) => {
+const initState = {
+    text: 'old',
+}
+
+const reducer = (state, action) => {
     switch (action.type) {
         case 'CHANGE_TEXT':
             return {
@@ -8,6 +12,6 @@ const todosReducer = (state, action) => {
         default:
             return state;
     }
-};
+}
 
-export default todosReducer
+export { initState, reducer }
