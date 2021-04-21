@@ -1,6 +1,6 @@
 import React from 'react'
+import { connect } from '@maple-rc/redux-hook'
 import * as actions from '../actions'
-import { connect } from '../util'
 
 const App = props => {
     // 用 useContext 来获取 state 与 dispatch
@@ -19,4 +19,4 @@ const App = props => {
     )
 }
 
-export default connect(state => state.counter)(App);
+export default connect(state => state.counter)(App)
